@@ -1,0 +1,14 @@
+C:\Users\radek\source\repos\treningC\treningC\bin\Debug\treningC.exe.config
+C:\Users\radek\source\repos\treningC\treningC\bin\Debug\treningC.exe
+C:\Users\radek\source\repos\treningC\treningC\bin\Debug\treningC.pdb
+C:\Users\radek\source\repos\treningC\treningC\bin\Debug\Renci.SshNet.dll
+C:\Users\radek\source\repos\treningC\treningC\bin\Debug\Renci.SshNet.xml
+C:\Users\radek\source\repos\treningC\treningC\obj\Debug\treningC.csprojAssemblyReference.cache
+C:\Users\radek\source\repos\treningC\treningC\obj\Debug\treningC.Form1.resources
+C:\Users\radek\source\repos\treningC\treningC\obj\Debug\treningC.Properties.Resources.resources
+C:\Users\radek\source\repos\treningC\treningC\obj\Debug\treningC.csproj.GenerateResource.cache
+C:\Users\radek\source\repos\treningC\treningC\obj\Debug\treningC.csproj.CopyComplete
+C:\Users\radek\source\repos\treningC\treningC\obj\Debug\treningC.exe
+C:\Users\radek\source\repos\treningC\treningC\obj\Debug\treningC.pdb
+C:\Users\radek\source\repos\treningC\treningC\bin\Debug\INIFileParser.dll
+C:\Users\radek\source\repos\treningC\treningC\bin\Debug\INIFileParser.xml
