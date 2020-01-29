@@ -12,3 +12,4 @@ C:\Users\radek\source\repos\treningC\treningC\obj\Debug\treningC.exe
 C:\Users\radek\source\repos\treningC\treningC\obj\Debug\treningC.pdb
 C:\Users\radek\source\repos\treningC\treningC\bin\Debug\INIFileParser.dll
 C:\Users\radek\source\repos\treningC\treningC\bin\Debug\INIFileParser.xml
+C:\Users\radek\source\repos\treningC\treningC\obj\Debug\treningC.MyCustomForm.resources

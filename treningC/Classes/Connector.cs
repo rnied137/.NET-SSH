@@ -1,27 +1,31 @@
 ﻿using Renci.SshNet;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using treningC.Classes;
 
 namespace treningC
 {
     class Connector
     {
+        private ProgressBar progressBar1 = null;
         private ConnectionSettings connectionSettings = null;
         private ConnectionInfo connectionInfo = null;
         private SftpClient client = null;
 
         private List<string> listOfFilesToDownload = new List<string>();
-        public Connector(ConnectionSettings conn)
+        public Connector() { }
+        public Connector(ConnectionSettings conn,ProgressBar p)
         {
             connectionSettings = conn;
-            
+            progressBar1 = p;
         }
 
-        
+
         public void setupConnectionSettings(ConnectionSettings conn)
         {
             connectionSettings = conn;
@@ -51,21 +55,15 @@ namespace treningC
                 var result = System.Windows.Forms.MessageBox.Show("Nie udalo sie polaczyc", "Niepowodzenie", System.Windows.Forms.MessageBoxButtons.OK);
                 Console.WriteLine("Nie powiodlo się !");
             }
-            
+
         }
 
-        
-           public string getConnectionStatus()
-        {
-            if (client.IsConnected)
-                return "Połączono";
-            else
-                return "Nie połączono";
-        }
 
-        private bool checkConnectionStatus()
+
+
+        public bool checkConnectionStatus()
         {
-             client = new SftpClient(connectionInfo);
+            client = new SftpClient(connectionInfo);
             try
             {
                 client.Connect();
@@ -84,30 +82,67 @@ namespace treningC
             }
             catch (Exception EX)
             {
-                Console.WriteLine("Panie mamy blad ale niewiadomo jaki. Tudno.");
+                Console.WriteLine("Panie mamy blad ale niewiadomo jaki. Tudno." + EX.StackTrace);
             }
-           
+            //
+            //  if (client.IsConnected)
+            //    return  Console.WriteLine("Połączono");
+            //  else
+            //    return "Nie połączono";
 
-
-                if (client.IsConnected)
+            if (client.IsConnected)
                 return true;
             else
                 return false;
-          
+
         }
 
         public void downloadFile()
         {
-
-          
-            int numbberOfFilesToDownload = listOfFilesToDownload.Count;
+            List<Renci.SshNet.Sftp.SftpFile> listWithFullInfoParams = new List<Renci.SshNet.Sftp.SftpFile>();
+            listWithFullInfoParams = sendCommand();
+            int numbberOfFilesToDownload = listWithFullInfoParams.Count;
             if (numbberOfFilesToDownload > 0)
             {
-                for (int i = 0; i< numbberOfFilesToDownload; numbberOfFilesToDownload ++ )
+
+                foreach (Renci.SshNet.Sftp.SftpFile file in listWithFullInfoParams)
                 {
+                    Console.WriteLine("Plik" + file.Name);
+                    Console.WriteLine("Plik Full Name" + file.FullName);
+
+
+                    string fileLocAndName = String.Format("{0}\\{1}",
+                              PathSettings.localPath, file.Name.ToString());
+
+                    using (Stream fileStream = File.Create(fileLocAndName))
+                    {
+                        progressBar1.Invoke(
+               (MethodInvoker)delegate {
+                   progressBar1.Maximum = (int)file.Attributes.Size; });
+                        //w watku ktorym sie aktualnie znajduje wywoluje delegata ktory ustawia maximum
+                        //progress bar ma metoda invoke jako element gui
+
+                        ////@
+                        //Invoke metoda synchronizacji z watkiem glownym dla gui
+                        //delegate {..} funkcja anonimowa czyli to co po delegate to jest ta funkcja wykonywana w watku i atrybut ktory ustawia
+                        //musi byc zgodny z tym co w invoke
+
+                        client.DownloadFile(file.FullName, fileStream, DownloadProgresBar);
+                        
+                        Console.WriteLine("Plik " + file.FullName);
+
+                    }
 
                 }
             }
+            else
+                Console.WriteLine("Brak plikow do pobrania !!!");
+        }
+
+        private void DownloadProgresBar(ulong uploaded)
+        {
+            // Update progress bar on foreground thread
+            progressBar1.Invoke((MethodInvoker)delegate { progressBar1.Value = (int)uploaded; });
         }
 
         public void uploadFile()
@@ -121,7 +156,7 @@ namespace treningC
         private List<Renci.SshNet.Sftp.SftpFile> retrieveListOfFilesInDir(string path)
         {
             List<Renci.SshNet.Sftp.SftpFile> list = null;
-            list  = client.ListDirectory(path).ToList();
+            list = client.ListDirectory(path).ToList();
             return list;
         }
         public List<Renci.SshNet.Sftp.SftpFile> sendCommand()
@@ -129,10 +164,21 @@ namespace treningC
             StringBuilder s = new StringBuilder();
             // client.
             List<Renci.SshNet.Sftp.SftpFile> list = retrieveListOfFilesInDir("/home/radek/Pliki/");
+            List<Renci.SshNet.Sftp.SftpFile> listOfFiles = new List<Renci.SshNet.Sftp.SftpFile>();
             //var result = System.Windows.Forms.MessageBox.Show(s.ToString(), "Pliki do pobrania", System.Windows.Forms.MessageBoxButtons.OK);
 
-            return list;
+            foreach (Renci.SshNet.Sftp.SftpFile file in list)
+            {
+                if (!file.IsDirectory)
+                {
+                    listOfFiles.Add(file);
+                    //list.Remove(file);
+                }
+            }
+            return listOfFiles;
         }
+    }
+}
          //   List<string> listOfPathsAndFilenames = new List<string>();
            // if (list.Count > 0 ) 
             //{
@@ -164,7 +210,3 @@ namespace treningC
         
 
             //return listOfPathsAndFilenames;
-
-
-        }
-}

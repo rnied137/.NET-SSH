@@ -24,6 +24,10 @@ namespace treningC
 
         private void button1_Click(object sender, EventArgs e)
         {
+
+
+            PathSettings.localPath= @"C:\Users\radek\Documents\";
+            PathSettings.remotePath = @"/home/radek/Pliki/";
             ConnectionSettings connection = new ConnectionSettings();
             connection.Ip = ipTextBox.Text;
             int n;
@@ -33,7 +37,6 @@ namespace treningC
             connection.Username = "root";
             connection.Password = "radek2";
             
-
             if (!isNumeric)
             {
                 var result = System.Windows.Forms.MessageBox.Show("Błąd", "Niepoprawny format portu", System.Windows.Forms.MessageBoxButtons.OK);
@@ -41,17 +44,17 @@ namespace treningC
             }
             else
             {
-                connector = new Connector(connection);
-                connector.getConnected();
-               
+                CustomController controller = new CustomController(connector = new Connector(connection,customProgressBar));
+                controller.processDownloads();
+          
             }
 
 
-            statusLabel.Text = connector.getConnectionStatus();
-
-            listOfFiles = connector.sendCommand();
-            Thread thr = new Thread(new ThreadStart(connector.downloadFile));
-            thr.Start();
+        //    statusLabel.Text = connector.getConnectionStatus();
+//
+        //    listOfFiles = connector.sendCommand();
+        //    Thread thr = new Thread(new ThreadStart(connector.downloadFile));
+         //   thr.Start();
 
         }
 
@@ -62,11 +65,21 @@ namespace treningC
 
         private void button1_Click_1(object sender, EventArgs e)
         {
+            Parser p = new Parser();
             ContainerList container = new ContainerList();
+            for (int i = 0; i < listOfFiles.Count; i ++)
+            {
+
+                container.list.Add(p.readFile(listOfFiles.ElementAt(i).FullName));
+
+
+            }
+        
            // for (int i=0; i< )
             //List<string> list = new List<string>();
            /// int size = list.Count;
-            FilesForm f = new FilesForm();
+            MyCustomForm f = new MyCustomForm();
+            f.Show();
            // TabPage[] tabs = new TabPage[size];
         }
 

@@ -39,6 +39,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.statusLabel = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.customProgressBar = new System.Windows.Forms.ProgressBar();
             this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -95,7 +96,7 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(394, 251);
+            this.tabControl1.Location = new System.Drawing.Point(231, 244);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(200, 100);
@@ -151,11 +152,19 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
+            // customProgressBar
+            // 
+            this.customProgressBar.Location = new System.Drawing.Point(94, 59);
+            this.customProgressBar.Name = "customProgressBar";
+            this.customProgressBar.Size = new System.Drawing.Size(581, 23);
+            this.customProgressBar.TabIndex = 9;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(728, 453);
+            this.Controls.Add(this.customProgressBar);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.statusLabel);
             this.Controls.Add(this.label3);
@@ -186,6 +195,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label statusLabel;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ProgressBar customProgressBar;
     }
 }
 

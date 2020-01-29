@@ -8,7 +8,7 @@ namespace treningC.Classes
 {
     class ContainerList
     {
-        public List<FileValues> list = null;
+        public List<FileValues> list = new List<FileValues>();
 
         public ContainerList ()
         {

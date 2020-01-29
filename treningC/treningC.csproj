@@ -57,13 +57,9 @@
     <Compile Include="Classes\ConnectionSettings.cs" />
     <Compile Include="Classes\Connector.cs" />
     <Compile Include="Classes\FileValues.cs" />
+    <Compile Include="Classes\PathSettings.cs" />
+    <Compile Include="Controller\CustomController.cs" />
     <Compile Include="Classes\Parser.cs" />
-    <Compile Include="FilesForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FilesForm.Designer.cs">
-      <DependentUpon>FilesForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,10 +69,19 @@
     <Compile Include="InterfaceClass\CustomTab.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="MyCustomForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MyCustomForm.Designer.cs">
+      <DependentUpon>MyCustomForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MyCustomForm.resx">
+      <DependentUpon>MyCustomForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
