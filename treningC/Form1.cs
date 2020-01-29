@@ -80,10 +80,17 @@ namespace treningC
            /// int size = list.Count;
             MyCustomForm f = new MyCustomForm();
             f.Show();
+
+           // string[] filenames = Directory.GetFiles(PathSettings.localPath)
            // TabPage[] tabs = new TabPage[size];
         }
 
         public void createInterface()  
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
         {
 
         }

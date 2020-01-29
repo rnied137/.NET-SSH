@@ -83,6 +83,7 @@ namespace treningC
             catch (Exception EX)
             {
                 Console.WriteLine("Panie mamy blad ale niewiadomo jaki. Tudno." + EX.StackTrace);
+                Console.WriteLine(EX.Message);
             }
             //
             //  if (client.IsConnected)
@@ -139,10 +140,22 @@ namespace treningC
                 Console.WriteLine("Brak plikow do pobrania !!!");
         }
 
+        void setVal(ulong val)
+        {
+            progressBar1.Value = (int)val;
+
+        }
+        
+        private delegate void delSetProgress(ulong val);
+        delSetProgress mydel;
         private void DownloadProgresBar(ulong uploaded)
         {
             // Update progress bar on foreground thread
-            progressBar1.Invoke((MethodInvoker)delegate { progressBar1.Value = (int)uploaded; });
+            
+            mydel = setVal;
+            progressBar1.Invoke(mydel,uploaded);
+
+            //    progressBar1.Invoke((MethodInvoker)delegate { progressBar1.Value = (int)uploaded; });
         }
 
         public void uploadFile()

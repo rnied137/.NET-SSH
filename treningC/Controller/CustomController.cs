@@ -28,7 +28,7 @@ namespace treningC.Classes
             {
                 {
                      thr = new Thread(new ThreadStart(connector.downloadFile));
-                    thr.Start();
+                     thr.Start();
                 }
              
             }
@@ -38,6 +38,7 @@ namespace treningC.Classes
         public void processFiles()
         {
            // if (!thr.IsAlive && connector.)
+
         }
 
 
